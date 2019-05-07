@@ -8,6 +8,9 @@ import { BannerComponent } from './acesso/banner/banner.component';
 import { LoginComponent } from './acesso/login/login.component';
 import { CadastroComponent } from './acesso/cadastro/cadastro.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HomeComponent } from './home/home.component';
+import { PublicacoesComponent } from './home/publicacoes/publicacoes.component';
+import { ROUTES } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -15,7 +18,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AcessoComponent,
     BannerComponent,
     LoginComponent,
-    CadastroComponent
+    CadastroComponent,
+    HomeComponent,
+    PublicacoesComponent
   ],
   imports: [
     BrowserModule,
