@@ -2,7 +2,7 @@
   <div class="card-body">
     <div class="card-title"></div>
     
-    <form [formGroup]="formulario" (ngSubmit)="cadastrarUsuario()">
+    <form [formGroup]="formulario" novalidate (ngSubmit)="cadastrarUsuario()">
       <div class="form-group">
         <input 
           type="email"
@@ -10,7 +10,8 @@
           placeholder="E-mail"
           formControlName="email"
         >
-      </div>
+        <small *ngIf="!formulario.get('email').valid && formulario.get('email').touched" class="form-text text-danger">Email inválido</small>
+        </div>
       <div class="form-group">
         <input 
           type="text"
@@ -18,6 +19,7 @@
           placeholder="Nome completo"
           formControlName="nome_completo"
         >
+        <small *ngIf="!formulario.get('nome_completo').valid && formulario.get('nome_completo').touched" class="form-text text-danger">Nome inválido</small>
       </div>
       <div class="form-group">
         <input 
@@ -26,6 +28,7 @@
           placeholder="Nome de usuário"
           formControlName="nome_usuario"
         >
+        <small *ngIf="!formulario.get('nome_usuario').valid && formulario.get('nome_usuario').touched" class="form-text text-danger">Nome de usuário inválido</small>
       </div>
       <div class="form-group">
         <input 
@@ -34,10 +37,13 @@
           placeholder="Senha"
           formControlName="senha"
         >
+        <small *ngIf="!formulario.get('senha').valid && formulario.get('senha').touched" class="form-text text-danger">Senha inválida</small>
       </div>
       <button type="submit" class="btn btn-primary btn-sm btn-block">Cadastre-se</button>
     </form>
     <hr />
+
+    <p class="small text-danger text-center">{{ mensagem_erro_cadastro }}</p>
 
     <p class="small text-center">Ao cadastrar-se, você concorda com nossos <b>Termos</b> e <b>Política de Privacidade</b>.</p>
 

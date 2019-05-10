@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Autenticacao } from '../../autenticacao.service';
 
 @Component({
@@ -11,10 +11,13 @@ export class LoginComponent implements OnInit {
 
   @Output() public exibirPainel: EventEmitter<string> = new EventEmitter<string>()
 
-  public formulario: FormGroup = new FormGroup( {
-    'email': new FormControl(null),
-    'senha': new FormControl(null)
+  public formulario: FormGroup = new FormGroup({
+    'email': new FormControl(null, Validators.required),
+    'senha': new FormControl(null, [ Validators.required, Validators.minLength(6) ])
   })
+
+  public mensagem_login: string = ''
+
   constructor(private autenticacao: Autenticacao) { }
 
   ngOnInit() {
@@ -25,8 +28,15 @@ export class LoginComponent implements OnInit {
   }
 
   public autenticar(): void {
-    this.autenticacao.autenticar(this.formulario.value.email, this.formulario.value.senha)
-    console.log(this.formulario)
+
+    if (this.formulario.status === 'INVALID') {
+      this.formulario.get('email').markAsTouched()
+      this.formulario.get('senha').markAsTouched()
+    } else {
+      this.autenticacao.autenticar(this.formulario.value.email, this.formulario.value.senha)
+        .then(() => this.mensagem_login = this.autenticacao.mensagem_login )
+      
+    }
   }
 
 }

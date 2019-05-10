@@ -30,7 +30,7 @@ import { AutenticacaoGuard } from './autenticacao-guard-service';
     AppRoutingModule,
     ReactiveFormsModule
   ],
-  providers: [ Autenticacao, AutenticacaoGuard ],
+  providers: [Autenticacao, AutenticacaoGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
