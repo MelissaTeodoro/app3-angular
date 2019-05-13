@@ -4,10 +4,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 
+//Services
 import { Autenticacao } from './autenticacao.service';
 import { AutenticacaoGuard } from './autenticacao-guard-service';
 import { Bd } from './bd.service';
+import { Progresso } from './progresso.service';
 
+//Components
 import { AppComponent } from './app.component';
 import { AcessoComponent } from './acesso/acesso.component';
 import { BannerComponent } from './acesso/banner/banner.component';
@@ -34,7 +37,7 @@ import { IncluirPublicacaoComponent } from './home/incluir-publicacao/incluir-pu
     AppRoutingModule,
     ReactiveFormsModule
   ],
-  providers: [Autenticacao, AutenticacaoGuard, Bd],
+  providers: [Autenticacao, AutenticacaoGuard, Bd, Progresso],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
