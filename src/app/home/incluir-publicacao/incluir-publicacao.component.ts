@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Bd } from '../../bd.service';
 import * as firebase from 'firebase';
@@ -11,6 +11,8 @@ import { Observable, Subject } from 'rxjs-compat';
   styleUrls: ['./incluir-publicacao.component.css']
 })
 export class IncluirPublicacaoComponent implements OnInit {
+
+  @Output() public atualizarTimeLine: EventEmitter<any> = new EventEmitter<any>()
 
   public email: string
   private imagem: any
@@ -46,18 +48,17 @@ export class IncluirPublicacaoComponent implements OnInit {
     acompanhamentoUpload
       .takeUntil(continua) //Enquanto
       .subscribe(() => {
-        console.log(this.progresso.status)
-        console.log(this.progresso.estado)
         this.progressoPublicacao = 'andamento'
 
         this.porcentagemUpload = Math.round((this.progresso.estado.bytesTransferred / this.progresso.estado.totalBytes) * 100)
         //Interromper o andamento quando estiver concluído
         if (this.progresso.status === 'concluído') {
           this.progressoPublicacao = 'concluído'
+          //Emitir um evento do componente parent (home)
+          this.atualizarTimeLine.emit()
           continua.next(false)
         }
       })
-
   }
 
   public preparaImagemUpload(event: Event): void {
